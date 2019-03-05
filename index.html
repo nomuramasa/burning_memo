@@ -35,10 +35,15 @@ textarea{
 </style>
 
 <body>
+<nav class='navbar text-black-50 bg-light'>
+	<div class='container'>
+		<h3>捨てメモ</h3>
+	</div>
+</nav>
 
 <div class='container my-3'>
   <div id='bigarea'></div> <!-- 大枠 この中に追加していく -->
-  <div class='btn btn-dark' onclick='add()'>新規メモ ＋</div> <!-- 新規追加ボタン -->
+  <div class='btn btn-dark' onclick='add()'>新しいメモ　＋</div> <!-- 新規追加ボタン -->
 </div>
 
 </body>
@@ -54,7 +59,7 @@ function add() { // 追加の関数
   // textbox.classList.add('textbox',); // ゴミ箱アイコンの為のクラス
 
   var trash = document.createElement('i') // 削除ボタン
-  trash.classList.add('fas', 'fa-trash', 'trash', 'btn'); // ゴミ箱アイコンの為のクラス
+  trash.classList.add('fas', 'fa-trash', 'trash', 'btn', 'btn-lg'); // ゴミ箱アイコンの為のクラス
   trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
     removeElement(e) // 削除関数を実行
   }
