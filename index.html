@@ -15,6 +15,7 @@
 <body>
 <nav class='navbar text-black-50 bg-light'>
 	<div class='container'>
+
 		<h3>焼き捨てメモ</h3>
 	</div>
 </nav>
@@ -40,8 +41,9 @@ function add() {
   var section = document.createElement('section') // セクション
   section.classList.add('mb-3'); // マージン
 
-  var textbox = document.createElement('textarea') // テキストエリア
-  textbox.classList.add('w-100', 'px-2', 'py-2', 'border-0', 'rounded', 'rounded-sm'); // クラス
+  var textbox = document.createElement('div') // テキストエリア
+  textbox.setAttribute('contenteditable','true') // テキストエリア
+  textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'border-0', 'rounded', 'rounded-sm'); // クラス
 
   var trash = document.createElement('i') // 削除ボタン
   trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg'); // 炎アイコンの為のクラス
@@ -62,9 +64,9 @@ function add() {
 // 削除
 function removeElement(e) { 
 
-  var confirm = window.confirm('このメモを燃やしますか？')
+  var confirm = window.confirm('このメモを燃やしますか？') // 確認アラート
 
-  if(confirm){
+  if(confirm){ // 「OK」の場合
     var trash = e.target // クリックされたゴミ箱
     var textbox = trash.previousSibling // 前の要素(つまりテキストボックス)
     var section = textbox.parentElement // セクション
