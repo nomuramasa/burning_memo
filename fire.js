@@ -133,7 +133,7 @@ function canvasInit(canvas){
 			}
 		}
 		
-		ctx.putImageData(imageData, 0, -1) // 位置
+		ctx.putImageData(imageData, 0, 0) // 位置
 	}
 
 	window.requestAnimationFrame(burnBurnBurn)

@@ -35,10 +35,9 @@ function add() {
   var section = document.createElement('section') // セクション
 
   var textbox = document.createElement('textarea') // テキストエリア
-  // textbox.classList.add('textbox',); // ゴミ箱アイコンの為のクラス
 
   var trash = document.createElement('i') // 削除ボタン
-  trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg'); // ゴミ箱アイコンの為のクラス
+  trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg'); // 炎アイコンの為のクラス
   trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
     removeElement(e) // 削除関数を実行
   }
@@ -49,10 +48,6 @@ function add() {
   bigarea.appendChild(section) // セクション生成
   section.appendChild(textbox) // テキストエリア生成
   section.appendChild(trash) // ゴミ箱生成
-  var canvas = document.createElement('canvas') // キャンバス
-  canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
-  section.appendChild(canvas) // キャンバス
-
 }
 
 
@@ -68,18 +63,20 @@ function removeElement(e) {
   canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
   section.appendChild(canvas) // キャンバス
 
-  // setTimeout(function(){ // 数秒後に
-	 //  var bigarea = section.parentElement // 大枠
-	 //  bigarea.removeChild(section) // セクション消す
-  // },3000)
+  setTimeout(function(){ // 1.5秒後に
+  	section.classList.add('feedout') // フェードアウトさせる
+  },1500)
+
+  setTimeout(function(){ // 2.5秒後に
+	  var bigarea = section.parentElement // 大枠
+	  bigarea.removeChild(section) // セクション消す
+  },2500)
 }
 
-window.onload = function() {
-	console.log('読み込んだ')
-	add()
-	// removeElement()
-	// removeElement();
-}
+// window.onload = function() {
+// 	console.log('読み込んだ')
+// 	add()
+// }
 
 </script>
 
