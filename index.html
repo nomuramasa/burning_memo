@@ -49,6 +49,10 @@ function add() {
   bigarea.appendChild(section) // セクション生成
   section.appendChild(textbox) // テキストエリア生成
   section.appendChild(trash) // ゴミ箱生成
+  var canvas = document.createElement('canvas') // キャンバス
+  canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
+  section.appendChild(canvas) // キャンバス
+
 }
 
 
@@ -64,11 +68,19 @@ function removeElement(e) {
   canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
   section.appendChild(canvas) // キャンバス
 
-  setTimeout(function(){
-	  var bigarea = section.parentElement // 大枠
-	  bigarea.removeChild(section) // セクション消す
-  },3000)
+  // setTimeout(function(){ // 数秒後に
+	 //  var bigarea = section.parentElement // 大枠
+	 //  bigarea.removeChild(section) // セクション消す
+  // },3000)
 }
+
+window.onload = function() {
+	console.log('読み込んだ')
+	add()
+	// removeElement()
+	// removeElement();
+}
+
 </script>
 
 <script src='scenery.js'></script> <!-- 朝と夜で背景が変わる -->
