@@ -29,7 +29,8 @@
 <script src='fire.js'></script> <!-- 燃えるアクション -->
 <script>
 
-function add() { // 追加の関数
+// 追加
+function add() { 
 
   var section = document.createElement('section') // セクション
 
@@ -42,25 +43,31 @@ function add() { // 追加の関数
     removeElement(e) // 削除関数を実行
   }
 
-  var canvas = document.createElement('canvas') // キャンバス
-  canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
 
 
   var bigarea = document.getElementById('bigarea') // 大枠
   bigarea.appendChild(section) // セクション生成
-  section.appendChild(canvas) // キャンバス
   section.appendChild(textbox) // テキストエリア生成
   section.appendChild(trash) // ゴミ箱生成
 }
 
 
 
-function removeElement(e) { // 削除の関数
+// 削除
+function removeElement(e) { 
+
   var trash = e.target // クリックされたゴミ箱
   var textbox = trash.previousSibling // 前の要素(つまりテキストボックス)
   var section = textbox.parentElement // セクション
-  var bigarea = section.parentElement // 大枠
-  bigarea.removeChild(section) // セクション消す
+
+  var canvas = document.createElement('canvas') // キャンバス
+  canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
+  section.appendChild(canvas) // キャンバス
+
+  setTimeout(function(){
+	  var bigarea = section.parentElement // 大枠
+	  bigarea.removeChild(section) // セクション消す
+  },3000)
 }
 </script>
 
