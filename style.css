@@ -7,7 +7,10 @@ body{
   max-width:900px;
 }
 
+#only_once{
+  /*height:150px;*/
 
+}
 
 /*説明文の吹き出し*/
 .balloon {
@@ -36,9 +39,6 @@ body{
   border-top: 14px solid #777;
   z-index: 1;
 }
-
-
-
 
 
 
@@ -93,3 +93,9 @@ canvas{
   transition: all 1s;
 } 
 
+/*スムーズに高さがなくなる*/
+/*.smooth-up{
+  transition: 0.7s;
+  height:0;
+}
+*/

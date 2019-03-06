@@ -21,53 +21,15 @@ document.addEventListener('DOMContentLoaded', function(event) {
 });
 
 // どこかをクリックすると説明文は消える
-// document.onclick=function(){
-//   var	div = document.getElementById('only_once') // 説明文のdiv
-// 	div.classList.add('feedout') // フェードアウトさせるクラスを付ける
-// 	//Uncaught TypeError: Cannot read property 'classList' of null at HTMLDocument.document.onclick
-//   var	container = document.getElementById('only_once').parentElement // その親のcontainer
-//   setTimeout(function(){ // 1秒後に
-// 	  container.removeChild(div) // conteinterからdivを削除
-// 	  // $('#only_once').slideUp(1000)
-// 	},1000)
-// }
+document.onclick = function(){
+	var	div = document.getElementById('only_once') // 説明文のdiv
+	if(div){ // #only_onceがあった場合のみ
+		div.classList.add('feedout') // フェードアウトさせるクラスを付ける
+		//Uncaught TypeError: Cannot read property 'classList' of null at HTMLDocument.document.onclick
 
-document.onclick=function(){
-
-var box = document.getElementById('only_once') ;  
-     
-// #box のコピーを作る
-var copyBox = box.cloneNode(true);
-// #box の親ノードに挿入
-box.parentNode.appendChild(copyBox);
-// ひとまずみえなくする
-copyBox.style.cssText = "display:block; height:auto; visibility:hidden; " ;
-// コピーの高さを調べる
-var copyBoxH = copyBox.offsetHeight;
-// コピーした要素を削除する
-box.parentNode.removeChild(copyBox);
- 
-// ボタンをクリックした時の処理
-// btn.onclick = function(){
-    var boxH = box.offsetHeight;
-    // if(boxH < 1){
-        // box.style.display = "block";
-        slideUp(boxH);
-    // } else {
-
-// スライドアップのアニメーション
-// console.log(boxH)
-var slideUp_timer;
-function slideUp(boxH){
-    if (boxH > 1) {
-        var boxH = boxH - 3;
-        box.style.height = boxH + "px";
-        slideUp_timer = setTimeout(function(){slideUp(boxH)}, 5);
-    } else {
-        clearTimeout(slideUp_timer);
-        box.style.height = 0;
-        box.style.display = "none";
-    }       
-}
-
+	  setTimeout(function(){ // 1秒後に
+		  var	container = document.getElementById('only_once').parentElement // その親のcontainer
+		  container.removeChild(div) // conteinterからdivを削除
+		},1000)
+	}
 }

@@ -23,11 +23,11 @@
 <div class='container my-3'>
 
   <!-- 最初の説明文 -->
-  <div id='only_once' class='text-sm-center my-4 balloon rounded rounded-lg p-3 mx-auto col-lg-7'>
+  <div id='only_once' class='text-sm-center mb-4 balloon rounded rounded-lg p-3 mx-auto col-lg-7'>
     <p class='text-sm-center'>
       抱え込んでいる心のモヤモヤを、整理してみませんか？ 
       <br class='d-none d-md-block'>
-      あの人の許せない所、誰にも言えない自分だけの秘密...。
+      誰にも話せない悩み、嫌いなあの人のこと...
     </p>
     <p class='mb-0 text-sm-center'>
       言葉にしてみることで、解決に繋がる場合もあります。
@@ -95,16 +95,16 @@ function removeElement(e) {
     	section.classList.add('feedout') // フェードアウトさせる
     },1500)
 
-    // setTimeout(function(){ // 2.2秒後に
-    //   textbox.style.transition = '0.7s'; // ゆっくりと
-    //   textbox.style.height = '0px'; // 高さを0に
-    // },2200)
     setTimeout(function(){ // 2.2秒後に
-      // var bigarea = section.parentElement // 大枠
-      // bigarea.removeChild(section) // セクション消す
-      section.style.transition = '0.7s'; // ゆっくりと
-      section.style.height = '0px'
+      var container = section.parentElement // その親のcontainer
+      container.removeChild(section) // conteinterからsectionを削除
+      // section.classList.add('smooth-up')// スムーズに高さを無くす
     },2200)
+    // setTimeout(function(){ // 2.9秒後に
+    //   section.removeChild(trash) 
+    //   section.removeChild(textbox) 
+    //   section.removeChild(canvas) 
+    // },2900)
   }
 }
 
