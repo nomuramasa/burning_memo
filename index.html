@@ -11,7 +11,6 @@
 <link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'> <!-- Font Awesome -->
 <!-- <script src='https://code.jquery.com/jquery-3.3.1.js'></script> --> <!-- jQuery -->
 
-
 <body>
 <nav class='navbar text-black-50 bg-light'>
 	<div class='container'>
@@ -20,7 +19,23 @@
 	</div>
 </nav>
 
+
 <div class='container my-3'>
+
+  <!-- 最初の説明文 -->
+  <div id='only_once' class='text-sm-center my-4 balloon rounded rounded-lg p-3 mx-auto col-lg-7'>
+    <p class='text-sm-center'>
+      抱え込んでいる心のモヤモヤを、整理してみませんか？ 
+      <br class='d-none d-md-block'>
+      あの人の許せない所、誰にも言えない自分だけの秘密...。
+    </p>
+    <p class='mb-0 text-sm-center'>
+      言葉にしてみることで、解決に繋がる場合もあります。
+      <br class='d-none d-md-block'>
+      データは残らないので、安心して何でも書いてみてください。
+    </p>
+  </div>
+
   <div id='bigarea'>
   	<!-- 大枠 この中に追加していく -->
   </div> 
@@ -41,9 +56,9 @@ function add() {
   var section = document.createElement('section') // セクション
   section.classList.add('mb-3'); // マージン
 
-  var textbox = document.createElement('div') // テキストエリア
-  textbox.setAttribute('contenteditable','true') // テキストエリア
-  textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'border-0', 'rounded', 'rounded-sm'); // クラス
+  var textbox = document.createElement('div') // 入力欄の為のdiv
+  textbox.setAttribute('contenteditable','true') // 入力できる欄にする
+  textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'rounded', 'rounded-sm'); // クラス
 
   var trash = document.createElement('i') // 削除ボタン
   trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg'); // 炎アイコンの為のクラス
@@ -55,7 +70,7 @@ function add() {
 
   var bigarea = document.getElementById('bigarea') // 大枠
   bigarea.appendChild(section) // セクション生成
-  section.appendChild(textbox) // テキストエリア生成
+  section.appendChild(textbox) // 入力欄生成
   section.appendChild(trash) // ゴミ箱生成
 }
 
@@ -96,4 +111,4 @@ window.onload = function() {
 
 </script>
 
-<script src='scenery.js'></script> <!-- 朝と夜で背景が変わる -->
+<script src='various.js'></script> <!-- 朝と夜で背景が変わる -->

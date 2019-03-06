@@ -2,10 +2,46 @@ body{
   background-size: cover; /*背景画像*/
 }
 
-/*狭めのcontainerにする？*/
+/*狭めのcontainerにする*/
 .container{
   max-width:900px;
 }
+
+
+
+/*説明文の吹き出し*/
+.balloon {
+  background-color: white;
+  border: solid 3px #777;
+}
+
+.balloon:before {
+  content: '';
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  margin-left: -15px;
+  border: 12px solid transparent;
+  border-top: 12px solid #FFF;
+  z-index: 2;
+}
+
+.balloon:after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  margin-left: -17px;
+  border: 14px solid transparent;
+  border-top: 14px solid #777;
+  z-index: 1;
+}
+
+
+
+
+
+
 
 /*新しいメモボタンを茶色に*/
 .btn-dark{ 
@@ -24,11 +60,9 @@ section{
   opacity: 1;
 }
 
-/*テキストエリア*/
+/*入力欄*/
 .textbox{
-  /*width:100%;*/
   height:200px;
-  resize: none; /*右下を消す*/
 }
 
 /*火のマーク*/
