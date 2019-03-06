@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // どこかをクリックすると説明文は消える
 document.onclick=function(){
   var	div = document.getElementById('only_once') // 説明文のdiv
+	div.classList.add('feedout') // フェードアウトさせる
   var	container = document.getElementById('only_once').parentElement // その親のcontainer
-  container.removeChild(div) // conteinterからdivを削除
+  setTimeout(function(){ // 1秒後に
+	  container.removeChild(div) // conteinterからdivを削除
+	},1000)
 }
