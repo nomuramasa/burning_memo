@@ -58,11 +58,12 @@ body{
 section{
   position: relative;
   opacity: 1;
+  height: 200px;
 }
 
 /*入力欄*/
 .textbox{
-  height:200px;
+  height:100%;
 }
 
 /*火のマーク*/

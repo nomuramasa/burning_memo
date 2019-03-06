@@ -1,0 +1,85 @@
+<meta charset='utf8'> 
+<section>
+<h1>カワウソ</h1>
+
+<p>カワウソ（獺、川獺）は、ネコ目（食肉目）イタチ科カワウソ亜科に属する哺乳動物の総称である。カワウソ亜科にはニホンカワウソやラッコなどが属している。</p>
+<!-- <p id="btn">続きを読む…</p> -->
+<div id="box">
+  <p> 泳ぎが得意であり、水中での生活に適応している。また、ラッコ以外のカワウソは陸上でも自由に行動している。南極、オーストラリア、ニュージーランドを除く、世界全域の水辺や海上で生息している。水かきをもった四肢は短く、胴体は細長い。このような体型は水の抵抗が少なく、敏捷な泳ぎを可能にしている。</p>
+</div>
+</section>
+
+<script>
+window.onload = function(){  
+ 
+// var btn = document.getElementById('btn') ;
+var box = document.getElementById('only_once') ;  
+     
+// #box のコピーを作る
+var copyBox = box.cloneNode(true);
+// #box の親ノードに挿入
+box.parentNode.appendChild(copyBox);
+// ひとまずみえなくする
+copyBox.style.cssText = "display:block; height:auto; visibility:hidden; " ;
+// コピーの高さを調べる
+var copyBoxH = copyBox.offsetHeight;
+// コピーした要素を削除する
+box.parentNode.removeChild(copyBox);
+ 
+// ボタンをクリックした時の処理
+// btn.onclick = function(){
+    var boxH = box.offsetHeight;
+    // if(boxH < 1){
+        // box.style.display = "block";
+        slideDown(boxH);
+    // } else {
+        // slideUp(boxH);
+    // }
+// };
+ 
+// スライドダウンのアニメーション
+// var slideDown_timer;
+// function slideDown(boxH){
+//     if (boxH < copyBoxH) {
+//         var boxH = boxH + 5;
+//         box.style.height = boxH + "px";
+//         slideDown_timer = setTimeout(function(){slideDown(boxH)}, 5);
+//     } else {
+//         clearTimeout(slideDown_timer);
+//         box.style.height = copyBoxH;
+//     }
+// }
+ 
+// スライドアップのアニメーション
+var slideUp_timer;
+function slideUp(boxH){
+    if (boxH >= 1) {
+        var boxH = boxH - 5;
+        box.style.height = boxH + "px";
+        slideUp_timer = setTimeout(function(){slideUp(boxH)}, 5);
+    } else {
+        clearTimeout(slideUp_timer);
+        box.style.height = 0;
+        box.style.display = "none";
+    }       
+}
+ 
+}    
+</script>
+<style>
+section{
+  width: 500px;
+  margin: 0 auto;
+}
+#btn{
+  padding: 20px;
+  background: $color;
+  /*color: #fff;*/
+  cursor: pointer;
+}
+#box{
+  display: none;
+  overflow: hidden;
+  height: 0;
+}
+</style>

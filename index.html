@@ -9,7 +9,7 @@
 
 <link rel='stylesheet' href='style.css'> <!-- CSS -->
 <link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'> <!-- Font Awesome -->
-<script src='https://code.jquery.com/jquery-3.3.1.js'></script> <!-- jQuery -->
+<!-- <script src='https://code.jquery.com/jquery-3.3.1.js'></script> jQuery -->
 
 <body>
 <nav class='navbar text-black-50 bg-light'>
@@ -95,13 +95,18 @@ function removeElement(e) {
     	section.classList.add('feedout') // フェードアウトさせる
     },1500)
 
-    setTimeout(function(){ // 2.5秒後に
-  	  var bigarea = section.parentElement // 大枠
-  	  bigarea.removeChild(section) // セクション消す
-    },2500)
+    // setTimeout(function(){ // 2.2秒後に
+    //   textbox.style.transition = '0.7s'; // ゆっくりと
+    //   textbox.style.height = '0px'; // 高さを0に
+    // },2200)
+    setTimeout(function(){ // 2.2秒後に
+      // var bigarea = section.parentElement // 大枠
+      // bigarea.removeChild(section) // セクション消す
+      section.style.transition = '0.7s'; // ゆっくりと
+      section.style.height = '0px'
+    },2200)
   }
 }
-
 
 // ページ読み込み時
 window.onload = function() {
