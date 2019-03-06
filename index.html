@@ -7,38 +7,10 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous'></script>
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous'></script>
 
+<link rel='stylesheet' href='style.css'> <!-- CSS -->
 <link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'> <!-- Font Awesome -->
 <!-- <script src='https://code.jquery.com/jquery-3.3.1.js'></script> --> <!-- jQuery -->
 
-
-
-<style>
-body{
-  background-size: cover; /*背景画像*/
-}
-section{
-  position: relative;
-  margin-bottom:15px;
-}
-textarea{
-  width:100%;
-  height:200px;
-  resize: none; /*右下を消す*/
-}
-
-.trash{
-  position: absolute;
-  right:0; 
-  bottom:0;
-}
-canvas{
-	position: absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height: 100%;
-}
-</style>
 
 <body>
 <nav class='navbar text-black-50 bg-light'>
@@ -54,7 +26,7 @@ canvas{
 
 </body>
 
-
+<script src='fire.js'></script> <!-- 燃えるアクション -->
 <script>
 
 function add() { // 追加の関数
@@ -71,14 +43,17 @@ function add() { // 追加の関数
   }
 
   var canvas = document.createElement('canvas') // キャンバス
-  canvas.setAttribute('id', 'fire')
+  canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
+
 
   var bigarea = document.getElementById('bigarea') // 大枠
   bigarea.appendChild(section) // セクション生成
   section.appendChild(textbox) // テキストエリア生成
-  section.appendChild(trash) // ゴミ箱生成
   section.appendChild(canvas) // キャンバス
+  section.appendChild(trash) // ゴミ箱生成
 }
+
+
 
 function removeElement(e) { // 削除の関数
   var trash = e.target // クリックされたゴミ箱
@@ -89,6 +64,7 @@ function removeElement(e) { // 削除の関数
 }
 
 
+
 // 朝と夜で景色が変わる
 var time = new Date().getHours() // 現在時刻を取得
 if(time <= 4 || time >= 18){ // 夜 18時00分〜4時59分
@@ -97,166 +73,5 @@ if(time <= 4 || time >= 18){ // 夜 18時00分〜4時59分
   document.body.background = 'img/sky.jpg' // 背景を青空に
 }
 
-</script>
 
-	<script type="text/javascript" charset="utf-8">
-		// start effect when dom is loaded
-		document.addEventListener("DOMContentLoaded", function() {
-			var canvas = document.getElementById('fire');
-			var ctx = canvas.getContext('2d');
-			var canvasWidth = canvas.width;
-			var canvasHeight = canvas.height;
-			var intensity = null;
-			var fps = 30;
-			var threshold = 0.5;
-			var imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
-			var data = imageData.data;
-			var numPixels = data.length / 4;
-			
-			var colors = [];
-			
-			for (var i = 0; i < 256; i++) {
-				var color = [];
-				color[0] = color[1] = color[2] = 0;
-				colors[i] = color;
-			}
-			
-			for (var i = 0; i < 32; ++i) {
-				colors[i][2] = i << 1;
-				colors[i + 32][0] = i << 3;
-				colors[i + 32][2] = 64 - (i << 1);
-				colors[i + 64][0] = 255;
-				colors[i + 64][1] = i << 3;
-				colors[i + 96][0] = 255;
-				colors[i + 96][1] = 255;
-				colors[i + 96][2] = i << 2;
-				colors[i + 128][0] = 255;
-				colors[i + 128][1] = 255;
-				colors[i + 128][2] = 64 + (i << 2);
-				colors[i + 160][0] = 255;
-				colors[i + 160][1] = 255;
-				colors[i + 160][2] = 128 + (i << 2);
-				colors[i + 192][0] = 255;
-				colors[i + 192][1] = 255;
-				colors[i + 192][2] = 192 + i;
-				colors[i + 224][0] = 255;
-				colors[i + 224][1] = 255;
-				colors[i + 224][2] = 224 + i;
-			}
-			
-			var fire = [];
-			// init fire array
-			for (var i = 0; i < canvasWidth * canvasHeight; i++) {
-				fire[i] = 0;
-			}
-			
-			var time = new Date().getTime();
-			
-			function randomizeThreshold() {
-				threshold += Math.random() * 0.2 - 0.1;
-				threshold = Math.min(Math.max(threshold, 0.5), 0.8);
-			}
-			
-			function burnBurnBurn() {
-				// request animation frame
-				window.requestAnimationFrame(burnBurnBurn);
-				var now = new Date().getTime();
-				dt = now - time;
-				
-				if (dt < (1000 / fps))
-					return; // skip a frame
-					
-				time = now;
-				
-				var bottomLine = canvasWidth * (canvasHeight - 1);
-				
-				// draw random pixels at the bottom line
-				for (var x = 0; x < canvasWidth; x++) {
-					var value = 0;
-					
-					if (Math.random() > threshold)
-						value = 255;
-						
-					fire[bottomLine + x] = value;
-				}
-				
-				// move flip upwards, start at bottom
-				var value = 0;
-				
-				for (var y = 0; y < canvasHeight; ++y) {
-					for (var x = 0; x < canvasWidth; ++x) {
-						if (x == 0) {
-							value = fire[bottomLine];
-							value += fire[bottomLine];
-							value += fire[bottomLine - canvasWidth];
-							value /= 3;
-						} else if (x == canvasWidth -1) {
-							value = fire[bottomLine + x];
-							value += fire[bottomLine - canvasWidth + x];
-							value += fire[bottomLine + x - 1];
-							value /= 3;
-						} else {
-							value = fire[bottomLine + x];
-							value += fire[bottomLine + x + 1];
-							value += fire[bottomLine + x - 1];
-							value += fire[bottomLine - canvasWidth + x];
-							value /= 4;
-						}
-						
-						if (value > 1)
-							value -= 1;
-						
-						value = Math.floor(value);
-						var index = bottomLine - canvasWidth + x;
-						fire[index] = value;
-					}
-					
-					bottomLine -= canvasWidth;
-				}
-				
-				var skipRows = 2; // skip the bottom 2 rows
-				
-				// render the flames using our color table
-				for (var y = skipRows; y < canvasHeight; ++y) {
-					for (var x = 0; x < canvasWidth; ++x) {
-						var index = y * canvasWidth * 4 + x * 4;
-						var value = fire[(y - skipRows) * canvasWidth + x];
-						
-						data[index] = colors[value][0];
-						data[++index] = colors[value][1];
-						data[++index] = colors[value][2];
-						data[++index] = 255;
-					}
-				}
-				
-				// sometimes change fire intensity
-				if (intensity == null) {
-					if (Math.random() > 0.95) {
-						randomizeThreshold();
-					}
-				}
-				
-				ctx.putImageData(imageData, 0, 0);
-		};
-		
-		window.requestAnimationFrame(burnBurnBurn);
-		
-		// intercept key up event to change intensity on fire effect
-		document.body.onkeyup = function(event) {
-			if (event.keyCode >= 97 && event.keyCode <= 105) {
-				intensity = (event.keyCode - 97);
-				intensity = intensity / 8;
-				intensity = intensity * 0.4;
-				intensity = intensity + 0.2;
-				threshold = 1 - intensity;
-			} else if (event.keyCode == 96) { // 0 ==> randomize
-				intensity = 0;
-				randomizeThreshold();
-			}
- 		};
-		
-		});
-		
-		// let's go for demo !
-		
-	</script>
+</script>
