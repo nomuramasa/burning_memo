@@ -1,11 +1,11 @@
 function canvasInit(canvas){
 
-  canvas.setAttribute('id', 'fire') // id='fire'
+  // canvas.setAttribute('id', 'fire') // id='fire'
 	var ctx = canvas.getContext('2d')
 	var canvasWidth = canvas.width
 	var canvasHeight = canvas.height
 	var intensity = null
-	var fps = 30
+	var fps = 50 // 炎が揺れるスピード
 	var threshold = 0.5
 	var imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight)
 	var data = imageData.data
@@ -26,7 +26,7 @@ function canvasInit(canvas){
 		colors[i + 64][1] = i << 3
 		colors[i + 96][0] = 255
 		colors[i + 96][1] = 255
-		colors[i + 96][2] = i << 2
+		colors[i + 96][2] = i << 3
 		colors[i + 128][0] = 255
 		colors[i + 128][1] = 255
 		colors[i + 128][2] = 64 + (i << 2)
@@ -60,12 +60,12 @@ function canvasInit(canvas){
 		var now = new Date().getTime()
 		dt = now - time
 		
-		if (dt < (1000 / fps))
+		if (dt < (1300 / fps)) // 炎が揺れるスピード 500は速い
 			return // skip a frame
 			
 		time = now
 		
-		var bottomLine = canvasWidth * (canvasHeight - 1)
+		var bottomLine = canvasWidth * (canvasHeight - 1) // 底の場所 50だと底がもっと上にある
 		
 		// draw random pixels at the bottom line
 		for (var x = 0; x < canvasWidth; x++) {
@@ -133,7 +133,7 @@ function canvasInit(canvas){
 			}
 		}
 		
-		ctx.putImageData(imageData, 0, 0)
+		ctx.putImageData(imageData, 0, -1) // 位置
 	}
 
 	window.requestAnimationFrame(burnBurnBurn)
