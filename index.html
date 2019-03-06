@@ -62,25 +62,31 @@ function add() {
 // 削除
 function removeElement(e) { 
 
-  var trash = e.target // クリックされたゴミ箱
-  var textbox = trash.previousSibling // 前の要素(つまりテキストボックス)
-  var section = textbox.parentElement // セクション
+  var confirm = window.confirm('このメモを燃やしますか？')
 
-  var canvas = document.createElement('canvas') // キャンバス
-  canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
-  canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
-  section.appendChild(canvas) // キャンバス生成
+  if(confirm){
+    var trash = e.target // クリックされたゴミ箱
+    var textbox = trash.previousSibling // 前の要素(つまりテキストボックス)
+    var section = textbox.parentElement // セクション
 
-  setTimeout(function(){ // 1.5秒後に
-  	section.classList.add('feedout') // フェードアウトさせる
-  },1500)
+    var canvas = document.createElement('canvas') // キャンバス
+    canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
+    canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
+    section.appendChild(canvas) // 炎のキャンバス生成
 
-  setTimeout(function(){ // 2.5秒後に
-	  var bigarea = section.parentElement // 大枠
-	  bigarea.removeChild(section) // セクション消す
-  },2500)
+    setTimeout(function(){ // 1.5秒後に
+    	section.classList.add('feedout') // フェードアウトさせる
+    },1500)
+
+    setTimeout(function(){ // 2.5秒後に
+  	  var bigarea = section.parentElement // 大枠
+  	  bigarea.removeChild(section) // セクション消す
+    },2500)
+  }
 }
 
+
+// ページ読み込み時
 window.onload = function() {
 	console.log('読み込んだとき、早速メモを１つ作成')
 	add()
