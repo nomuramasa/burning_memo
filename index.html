@@ -20,8 +20,13 @@
 </nav>
 
 <div class='container my-3'>
-  <div id='bigarea'></div> <!-- 大枠 この中に追加していく -->
-  <div class='btn btn-dark' onclick='add()'>新しいメモ　＋</div> <!-- 新規追加ボタン -->
+  <div id='bigarea'>
+  	<!-- 大枠 この中に追加していく -->
+  </div> 
+
+  <div class="text-center btn-div mt-4"> <!-- ボタンを真ん中にする -->
+	  <div class='btn btn-dark' onclick='add()'>新しいメモ　＋</div> <!-- 新規追加ボタン -->
+	</div>
 </div>
 
 </body>
@@ -33,8 +38,10 @@
 function add() { 
 
   var section = document.createElement('section') // セクション
+  section.classList.add('mb-3'); // マージン
 
   var textbox = document.createElement('textarea') // テキストエリア
+  textbox.classList.add('w-100', 'px-2', 'py-2', 'border-0', 'rounded', 'rounded-sm'); // クラス
 
   var trash = document.createElement('i') // 削除ボタン
   trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg'); // 炎アイコンの為のクラス
@@ -60,8 +67,9 @@ function removeElement(e) {
   var section = textbox.parentElement // セクション
 
   var canvas = document.createElement('canvas') // キャンバス
+  canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
   canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
-  section.appendChild(canvas) // キャンバス
+  section.appendChild(canvas) // キャンバス生成
 
   setTimeout(function(){ // 1.5秒後に
   	section.classList.add('feedout') // フェードアウトさせる
@@ -73,10 +81,10 @@ function removeElement(e) {
   },2500)
 }
 
-// window.onload = function() {
-// 	console.log('読み込んだ')
-// 	add()
-// }
+window.onload = function() {
+	console.log('読み込んだとき、早速メモを１つ作成')
+	add()
+}
 
 </script>
 
