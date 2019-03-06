@@ -23,9 +23,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // どこかをクリックすると説明文は消える
 document.onclick=function(){
   var	div = document.getElementById('only_once') // 説明文のdiv
-	div.classList.add('feedout') // フェードアウトさせる
+	div.classList.add('feedout') // フェードアウトさせるクラスを付ける
+	//Uncaught TypeError: Cannot read property 'classList' of null at HTMLDocument.document.onclick
   var	container = document.getElementById('only_once').parentElement // その親のcontainer
   setTimeout(function(){ // 1秒後に
 	  container.removeChild(div) // conteinterからdivを削除
+	  // $('#only_once').slideUp(1000)
 	},1000)
 }
