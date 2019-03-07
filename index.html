@@ -109,7 +109,18 @@ function removeElement(e) {
   }
 }
 
-// function removeElement(e) { 
+// 音声入力
+function voiceInput(e) { 
+
+
+
+
+  
+  var mic = e.target
+  var section = mic.parentElement
+  var textbox = section.children[0] // [0]はテキストボックスのdiv　[1]はマイク [2]は火アイコン
+  textbox.insertAdjacentHTML('beforeend', 'あいうえお') // テキストボックスの既存のテキストの後ろへ追加
+}
 
 
 // ページ読み込み時
