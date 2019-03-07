@@ -8,8 +8,13 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous'></script>
 
 <link rel='stylesheet' href='style.css'> <!-- CSS -->
-<link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'> <!-- Font Awesome -->
+
+<!-- Font Awesome -->
+<link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+
 <!-- <script src='https://code.jquery.com/jquery-3.3.1.js'></script> jQuery -->
+
 
 <body>
 <nav class='navbar text-black-50 bg-light'>
@@ -24,7 +29,7 @@
 <div class='container my-3'>
 
   <!-- 最初の説明文 -->
-  <div id='only_once' class='text-sm-center mb-4 balloon rounded rounded-lg p-3 mx-auto col-lg-7'>
+<!--   <div id='only_once' class='text-sm-center mb-4 balloon rounded rounded-lg p-3 mx-auto col-lg-7'>
     <p class='text-sm-center'>
       抱え込んでいる心のモヤモヤを、整理してみませんか？ 
       <br class='d-none d-md-block'>
@@ -35,7 +40,7 @@
       <br class='d-none d-md-block'>
       データは残らないので、安心して何でも書いてみてください。
     </p>
-  </div>
+  </div> -->
 
   <div id='bigarea'>
   	<!-- 大枠 この中に追加していく -->
@@ -123,17 +128,27 @@ function voiceInput(e){
   speech.lang = 'ja' // 言語を日本語に設定
   speech.start() // 音声認識をスタート
 
-  // 音声認識した結果を得る処理
+  var mic = e.target // 今押したマイクボタン
+  console.log(mic)
+  mic.classList.add('faa-pulse', 'animated')
+
+
+  // 音声認識した結果を得る
   speech.addEventListener('result', function(el){
 
     console.log(el) // 音声認識で取得した情報を、コンソール画面に表示
-    var voice = el.results[0][0].transcript // 情報のうち、テキストのみを変数に代入
+    var voice = el.results[0][0].transcript // 言葉のみ
 
-    var mic = e.target 
-    var section = mic.parentElement
+    var section = mic.parentElement // 今押したマイクボタンの親のsection
     var textbox = section.children[0] // [0]はテキストボックスのdiv　[1]はマイク [2]は火アイコン
-    textbox.insertAdjacentHTML('beforeend', voice) // テキストボックスの既存のテキストの後ろへ追加
+    textbox.insertAdjacentHTML('beforeend', '<br>' + voice) // テキストボックスの既存のテキストの後ろを改行して、入力した言葉を追加
   })
+
+  // endイベントのコールバックを設定
+  speech.onend = function(ev) {
+  mic.classList.remove('faa-pulse', 'animated')
+
+  }
 }
 
 

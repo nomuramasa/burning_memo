@@ -11,14 +11,6 @@ if(time <= 4 || time >= 18){ // 夜 18時00分〜4時59分
 }
 
 
-// 最初の説明文
-document.addEventListener('DOMContentLoaded', function(event) { 
-  if (sessionStorage.getItem('visited') == null) { // sessionにvisitedがまだ無いとき（つまりこのタブで最初のアクセスのとき）
-    document.getElementById('only_once').classList.add('d-block'); // 表示クラスを付ける
-    // document.getElementById('only_once').classList.remove('d-none'); //消すクラスをなくす
-    sessionStorage.setItem('visited', 1) // フラグを立てる
-  }
-});
 
 // どこかをクリックすると説明文は消える
 document.onclick = function(){
