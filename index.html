@@ -78,7 +78,14 @@ function add() {
   var bigarea = document.getElementById('bigarea') // 大枠
   bigarea.appendChild(section) // セクション生成
   section.appendChild(textbox) // 入力欄生成
-  section.appendChild(mic) // マイク生成
+
+  // ブラウザがChomeかを判別
+  var agent = window.navigator.userAgent.toLowerCase() // ユーザーエージェント
+  var chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1) // trueかfalse
+  if(chrome){ // Chromeブラウザだったら 
+    section.appendChild(mic) // マイク生成
+  }
+
   section.appendChild(trash) // 削除ボタン生成
 }
 
@@ -113,11 +120,8 @@ function removeElement(e){
 function voiceInput(e){ 
 
   var speech = new webkitSpeechRecognition() // 音声認識APIの使用
-
-  speech.lang = "ja" // 言語を日本語に設定
-
+  speech.lang = 'ja' // 言語を日本語に設定
   speech.start() // 音声認識をスタート
-
 
   // 音声認識した結果を得る処理
   speech.addEventListener('result', function(el){
@@ -129,9 +133,7 @@ function voiceInput(e){
     var section = mic.parentElement
     var textbox = section.children[0] // [0]はテキストボックスのdiv　[1]はマイク [2]は火アイコン
     textbox.insertAdjacentHTML('beforeend', voice) // テキストボックスの既存のテキストの後ろへ追加
-
-  });
-
+  })
 }
 
 
