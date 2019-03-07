@@ -11,7 +11,8 @@
 
 <!-- Font Awesome -->
 <link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+<!-- FontAwesomeアニメーション -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" /> 
 
 <!-- <script src='https://code.jquery.com/jquery-3.3.1.js'></script> jQuery -->
 
@@ -29,7 +30,7 @@
 <div class='container my-3'>
 
   <!-- 最初の説明文 -->
-<!--   <div id='only_once' class='text-sm-center mb-4 balloon rounded rounded-lg p-3 mx-auto col-lg-7'>
+  <div id='only_once' class='text-sm-center mb-4 balloon rounded rounded-lg p-3 mx-auto col-lg-7'>
     <p class='text-sm-center'>
       抱え込んでいる心のモヤモヤを、整理してみませんか？ 
       <br class='d-none d-md-block'>
@@ -40,7 +41,7 @@
       <br class='d-none d-md-block'>
       データは残らないので、安心して何でも書いてみてください。
     </p>
-  </div> -->
+  </div>
 
   <div id='bigarea'>
   	<!-- 大枠 この中に追加していく -->
@@ -67,13 +68,13 @@ function add() {
   textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'rounded', 'rounded-sm'); // クラス
 
   var trash = document.createElement('i') // 削除ボタン
-  trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg'); // 炎アイコンの為のクラス
+  trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg', 'px-2'); // 炎アイコンの為のクラス
   trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
     removeElement(e) // 削除関数を実行
   }
 
   var mic = document.createElement('i') // 音声入力ボタン
-  mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg'); // マイクアイコンの為のクラス
+  mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg', 'px-2'); // マイクアイコンの為のクラス
   mic.onclick = function(e) { // マイクボタンを押したとき
     voiceInput(e) // 音声入力関数を実行
   }
@@ -129,26 +130,31 @@ function voiceInput(e){
   speech.start() // 音声認識をスタート
 
   var mic = e.target // 今押したマイクボタン
-  console.log(mic)
-  mic.classList.add('faa-pulse', 'animated')
+  mic.classList.remove('fa-microphone', 'btn-lg') // マイクアイコン、大ボタン、のクラスを消す
+  mic.classList.add('fa-circle', 'faa-flash', 'animated', 'mb-1') // 丸アイコン、チカチカする動き、下の隙間、を追加
+  mic.innerHTML = ' 声を認識中…' // 説明文字
 
+  // 録音終了時のイベント
+  speech.onend = function() { // 元に戻しておく
+    mic.classList.add('fa-microphone', 'btn-lg') 
+    mic.classList.remove('fa-circle', 'faa-flash', 'animated', 'mb-1')
+    mic.innerHTML = ''
+  }
 
   // 音声認識した結果を得る
   speech.addEventListener('result', function(el){
 
-    console.log(el) // 音声認識で取得した情報を、コンソール画面に表示
+    // console.log(el) // 音声認識で取得した情報を、コンソール画面に表示
     var voice = el.results[0][0].transcript // 言葉のみ
 
     var section = mic.parentElement // 今押したマイクボタンの親のsection
     var textbox = section.children[0] // [0]はテキストボックスのdiv　[1]はマイク [2]は火アイコン
-    textbox.insertAdjacentHTML('beforeend', '<br>' + voice) // テキストボックスの既存のテキストの後ろを改行して、入力した言葉を追加
+    if(textbox.innerHTML){ // 既に中身があれば
+      textbox.insertAdjacentHTML('beforeend', '<br>') // テキストボックスの既存のテキストの後ろを改行
+    }
+    textbox.insertAdjacentHTML('beforeend', voice) // テキストボックスの既存のテキストの後ろに、入力した言葉を追加
   })
 
-  // endイベントのコールバックを設定
-  speech.onend = function(ev) {
-  mic.classList.remove('faa-pulse', 'animated')
-
-  }
 }
 
 
