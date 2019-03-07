@@ -17,6 +17,7 @@
 
 		<h3>焼き捨てメモ</h3>
 	</div>
+  
 </nav>
 
 
@@ -66,12 +67,19 @@ function add() {
     removeElement(e) // 削除関数を実行
   }
 
+  var mic = document.createElement('i') // 音声入力ボタン
+  mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg'); // マイクアイコンの為のクラス
+  mic.onclick = function(e) { // マイクボタンを押したとき
+    voiceInput(e) // 音声入力関数を実行
+  }
+
 
 
   var bigarea = document.getElementById('bigarea') // 大枠
   bigarea.appendChild(section) // セクション生成
   section.appendChild(textbox) // 入力欄生成
-  section.appendChild(trash) // ゴミ箱生成
+  section.appendChild(mic) // マイク生成
+  section.appendChild(trash) // 削除ボタン生成
 }
 
 
@@ -83,8 +91,7 @@ function removeElement(e) {
 
   if(confirm){ // 「OK」の場合
     var trash = e.target // クリックされたゴミ箱
-    var textbox = trash.previousSibling // 前の要素(つまりテキストボックス)
-    var section = textbox.parentElement // セクション
+    var section = trash.parentElement // セクション
 
     var canvas = document.createElement('canvas') // キャンバス
     canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
@@ -92,25 +99,22 @@ function removeElement(e) {
     section.appendChild(canvas) // 炎のキャンバス生成
 
     setTimeout(function(){ // 1.5秒後に
-    	section.classList.add('feedout') // フェードアウトさせる
+      section.classList.add('feedout') // フェードアウトさせる
     },1500)
 
     setTimeout(function(){ // 2.2秒後に
       var container = section.parentElement // その親のcontainer
       container.removeChild(section) // conteinterからsectionを削除
-      // section.classList.add('smooth-up')// スムーズに高さを無くす
     },2200)
-    // setTimeout(function(){ // 2.9秒後に
-    //   section.removeChild(trash) 
-    //   section.removeChild(textbox) 
-    //   section.removeChild(canvas) 
-    // },2900)
   }
 }
 
+// function removeElement(e) { 
+
+
 // ページ読み込み時
 window.onload = function() {
-	add() // 早速メモを１つ作成
+  add() // 早速メモを１つ作成
 }
 
 </script>

@@ -1,0 +1,68 @@
+<meta charset='utf8'> <!-- 文字コード -->
+<body>
+
+
+    <h3>Web Speech APIサンプル</h3>
+
+
+    <button id="btn">音声認識開始</button>
+    <div id="content"></div>
+  
+    
+
+
+
+</body>
+
+
+<script>
+var speech = new webkitSpeechRecognition();
+
+// app.js
+
+
+var btn = document.getElementById('btn');
+var content = document.getElementById('content');
+
+
+
+
+//音声認識APIの使用
+var speech = new webkitSpeechRecognition();
+
+
+//言語を日本語に設定
+speech.lang = "ja";
+
+
+
+
+btn.addEventListener( 'click' , function() {
+
+
+    // ➀ボタンをクリックした時の処理
+
+    // 音声認識をスタート
+    speech.start();
+
+} );
+
+
+
+
+speech.addEventListener( 'result' , function( e ) {
+
+
+    // ➁音声認識した結果を得る処理
+    // 音声認識で取得した情報を、コンソール画面に表示
+    console.log( e );
+
+    var text = e.results[0][0].transcript;
+
+
+    // 認識された「言葉(text)」を、表示用のdivタグに代入する
+    content.textContent = text;
+
+
+} );
+</script>

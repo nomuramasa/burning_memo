@@ -74,6 +74,14 @@ section{
   bottom:0;
 }
 
+/*マイクのマーク*/
+.mic{ 
+  color:gray;
+  position: absolute;
+  right:50; 
+  bottom:0;
+}
+
 /*炎の為のキャンバス*/
 canvas{
   position: absolute;
