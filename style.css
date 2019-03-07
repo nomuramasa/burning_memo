@@ -1,5 +1,18 @@
+/*フォント*/
+/*@font-face {
+   font-family: 'hannari';
+   src: url('font/Hannari.otf') ;
+}
+*/
+
+/*Yasashii*/
+
 body{
   background-size: cover; /*背景画像*/
+
+  /*フォント設定*/
+  /*font-size: 1.3em;*/
+  /*font-family: 'hannari', 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', sans-serif;*/
 }
 
 /*狭めのcontainerにする*/

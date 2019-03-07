@@ -1,0 +1,25 @@
+<div id="app">
+  Hello {{ message }} !
+  <button @click="update">change</button>
+</div>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js'></script>
+<script>
+
+new Vue({
+  el: '#app',
+  data: {
+    message: '腹減った'
+  },
+  methods: {
+    update() {
+      this.message = 'リンゴが食べたい'
+    }
+  }
+})
+	
+
+</script>
+
+
