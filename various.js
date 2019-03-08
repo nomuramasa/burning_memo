@@ -12,12 +12,13 @@ if(time <= 4 || time >= 18){ // 夜 18時00分〜4時59分
 
 
 
-// どこかをクリックすると説明文は消える
+// 最初にどこかをクリックすると説明文は消える
+var first_balloon = 1 // 説明文フラグ　最初はある=1
 document.onclick = function(){
 	var	div = document.getElementById('only_once') // 説明文のdiv
-	if(div){ // #only_onceがあった場合のみ
-		div.classList.add('feedout') // フェードアウトさせるクラスを付ける
-		//Uncaught TypeError: Cannot read property 'classList' of null at HTMLDocument.document.onclick
+	if(first_balloon == 1){ // 説明文がある場合のみ
+		first_balloon = 0 // 説明文フラグをなくす=0  もしこれを下の方に記述すると消えてる途中にクリックでエラー
+		div.classList.add('feedout') // スゥッと消すためのクラスを付ける
 
 	  setTimeout(function(){ // 1秒後に
 		  var	container = document.getElementById('only_once').parentElement // その親のcontainer

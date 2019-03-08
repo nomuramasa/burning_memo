@@ -62,7 +62,7 @@
 <script src='fire.js'></script> <!-- 燃えるアクション -->
 <script>
 
-new Vue({
+addVue = new Vue({
 
   el: '#bigarea',
   data: {
@@ -72,7 +72,8 @@ new Vue({
     add: function(){ // メモ追加
 
       var section = document.createElement('section') // セクション
-      section.classList.add('mb-3'); // マージン
+      section.setAttribute('id', 'memo') // IDはmemo
+      section.classList.add('mb-3') // マージン
 
       var textbox = document.createElement('div') // 入力欄の為のdiv
       textbox.setAttribute('contenteditable','true') // 入力できる欄にする
@@ -80,9 +81,10 @@ new Vue({
 
       var trash = document.createElement('i') // 削除ボタン
       trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg', 'px-2'); // 炎アイコンの為のクラス
-      trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
-        removeElement(e) // 削除関数を実行
-      }
+      // trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
+        // del(e) // 削除関数を実行
+      // }
+      trash.setAttribute('v-on:click', 'del') // 削除ボタンを押したとき
 
       var mic = document.createElement('i') // 音声入力ボタン
       mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg', 'px-2'); // マイクアイコンの為のクラス
@@ -112,35 +114,48 @@ new Vue({
 
       section.appendChild(trash) // 削除ボタン生成
 
+      //ここで
+
     }
   }
 
 })
 
-// 削除
-function removeElement(e){ 
 
-  var confirm = window.confirm('このメモを燃やしますか？') // 確認アラート
+deleteVue = new Vue({
+  el: '#memo',
+  data: {
 
-  if(confirm){ // 「OK」の場合
-    var trash = e.target // クリックされたゴミ箱
-    var section = trash.parentElement // セクション
+  },
+  methods: {
+    del: function(e){
 
-    var canvas = document.createElement('canvas') // キャンバス
-    canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
-    canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
-    section.appendChild(canvas) // 炎のキャンバス生成
+      var confirm = window.confirm('このメモを燃やしますか？') // 確認アラート
 
-    setTimeout(function(){ // 1.5秒後に
-      section.classList.add('feedout') // フェードアウトさせる
-    },1500)
+      if(confirm){ // 「OK」の場合
+        var trash = e.target // クリックされたゴミ箱
+        var section = trash.parentElement // セクション
 
-    setTimeout(function(){ // 2.2秒後に
-      var container = section.parentElement // その親のcontainer
-      container.removeChild(section) // conteinterからsectionを削除
-    },2200)
+        var canvas = document.createElement('canvas') // キャンバス
+        canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
+        canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
+        section.appendChild(canvas) // 炎のキャンバス生成
+
+        setTimeout(function(){ // 1.5秒後に
+          section.classList.add('feedout') // フェードアウトさせる
+        },1500)
+
+        setTimeout(function(){ // 2.2秒後に
+          var container = section.parentElement // その親のcontainer
+          container.removeChild(section) // conteinterからsectionを削除
+        },2200)
+      }
+
+    }
   }
-}
+
+})
+
 
 // 音声入力
 function voiceInput(e){ 
