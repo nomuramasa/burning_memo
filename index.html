@@ -14,16 +14,15 @@
 <!-- FontAwesomeアニメーション -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" /> 
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js'></script><!-- Vue.jsの読み込み -->
 <!-- <script src='https://code.jquery.com/jquery-3.3.1.js'></script> jQuery -->
 
 
 <body>
 <nav class='navbar text-black-50 bg-light'>
-	<div class='container'>
+  <div class='container'>
 
-		<h3>焼き捨てメモ</h3>
-	</div>
+    <h3>焼き捨てメモ</h3>
+  </div>
   
 </nav>
 
@@ -44,25 +43,13 @@
     </p>
   </div>
 
-  <!-- 大枠 -->
   <div id='bigarea'>
-   	<!-- メモ作成エリア この中に追加していく -->
-      <div id='makearea'>
-      </div> 
-<!--       <template>
-        <section id="memo" class="mb-3">
-          <div contenteditable="true" class="textbox bg-white w-100 px-2 py-2 rounded rounded-sm">
-          </div>
-          <i class="fas fa-microphone mic btn btn-lg px-2"></i><i class="fas fa-burn trash btn btn-lg px-2" v-on:click="del">
-          </i>
-        </section> 
-      </template>
- -->
-    <div class="text-center btn-div mt-4"> <!-- ボタンを真ん中にする -->
-  	  <div class='btn btn-dark' v-on:click='add'>新しいメモ　＋</div> <!-- 新規追加ボタン -->
-  	</div>
-  </div>
+    <!-- 大枠 この中に追加していく -->
+  </div> 
 
+  <div class="text-center btn-div mt-4"> <!-- ボタンを真ん中にする -->
+    <div class='btn btn-dark' onclick='add()'>新しいメモ　＋</div> <!-- 新規追加ボタン -->
+  </div>
 </div>
 
 </body>
@@ -70,90 +57,77 @@
 <script src='fire.js'></script> <!-- 燃えるアクション -->
 <script>
 
-addVue = new Vue({
+// 追加
+function add() { 
 
-  el: '#bigarea',
-  data: {
-    // データってある？？
-  },
-  methods: {
-    add: function(){ // メモ追加
+  var section = document.createElement('section') // セクション
+  section.classList.add('mb-3'); // マージン
 
-      var section = document.createElement('section') // セクション
-      section.setAttribute('id', 'memo') // IDはmemo
-      section.classList.add('mb-3') // マージン
+  var textbox = document.createElement('div') // 入力欄の為のdiv
+  textbox.setAttribute('contenteditable','true') // 入力できる欄にする
+  textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'rounded', 'rounded-sm'); // クラス
 
-      var textbox = document.createElement('div') // 入力欄の為のdiv
-      textbox.setAttribute('contenteditable','true') // 入力できる欄にする
-      textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'rounded', 'rounded-sm'); // クラス
-
-      var trash = document.createElement('i') // 削除ボタン
-      trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg', 'px-2'); // 炎アイコンの為のクラス
-      // trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
-        // del(e) // 削除関数を実行
-      // }
-      trash.setAttribute('v-on:click', 'del') // 削除ボタンを押したとき
-
-      var mic = document.createElement('i') // 音声入力ボタン
-      mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg', 'px-2'); // マイクアイコンの為のクラス
-      mic.onclick = function(e) { // マイクボタンを押したとき
-        voiceInput(e) // 音声入力関数を実行
-      }
-
-
-
-      var makearea = document.getElementById('makearea') // メモ作成エリア
-      makearea.appendChild(section) // セクション生成
-      section.appendChild(textbox) // 入力欄生成
-
-
-      // ブラウザがChomeかを判別
-      var agent = window.navigator.userAgent.toLowerCase() // ユーザーエージェント
-      var chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1) // trueかfalse
-
-      // 安全な通信かを判別
-      var host = document.location.hostname; // ホスト
-      var protocol = location.protocol; // 通信プロトコル
-      var secure = host == 'localhost' || host == '127.0.0.1' || protocol == 'https' // ローカル環境またはSSL通信かどうか どちらかであればtrue どちらでもなければfalse
-     
-      if(chrome && secure){ // Chromeブラウザで、かつ安全な通信だったら 
-        section.appendChild(mic) // マイク生成
-      }
-
-      section.appendChild(trash) // 削除ボタン生成
-
-      // ここでdeleteVueを作成！ カウンタで1,2,3ってすればthis必要ないけど、どれ推奨？？
-    },
-
-    del: function(e){ // メモ削除
-
-      var confirm = window.confirm('このメモを燃やしますか？') // 確認アラート
-
-      if(confirm){ // 「OK」の場合
-        var trash = e.target // クリックされたゴミ箱
-        var section = trash.parentElement // セクション
-
-        var canvas = document.createElement('canvas') // キャンバス
-        canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
-        canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
-        section.appendChild(canvas) // 炎のキャンバス生成
-
-        setTimeout(function(){ // 1.5秒後に
-          section.classList.add('feedout') // フェードアウトさせる
-        },1500)
-
-        setTimeout(function(){ // 2.2秒後に
-          var container = section.parentElement // その親のcontainer
-          container.removeChild(section) // conteinterからsectionを削除
-        },2200)
-      }
-
-    }
-
+  var trash = document.createElement('i') // 削除ボタン
+  trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg', 'px-2'); // 炎アイコンの為のクラス
+  trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
+    removeElement(e) // 削除関数を実行
   }
 
-})
+  var mic = document.createElement('i') // 音声入力ボタン
+  mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg', 'px-2'); // マイクアイコンの為のクラス
+  mic.onclick = function(e) { // マイクボタンを押したとき
+    voiceInput(e) // 音声入力関数を実行
+  }
 
+
+
+  var bigarea = document.getElementById('bigarea') // 大枠
+  bigarea.appendChild(section) // セクション生成
+  section.appendChild(textbox) // 入力欄生成
+
+
+  // ブラウザがChomeかを判別
+  var agent = window.navigator.userAgent.toLowerCase() // ユーザーエージェント
+  var chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1) // trueかfalse
+
+  // 安全な通信かを判別
+  var host = document.location.hostname; // ホスト
+  var protocol = location.protocol; // 通信プロトコル
+  var secure = host == 'localhost' || host == '127.0.0.1' || protocol == 'https' // ローカル環境またはSSL通信かどうか どちらかであればtrue どちらでもなければfalse
+ 
+  if(chrome && secure){ // Chromeブラウザで、かつ安全な通信だったら 
+    section.appendChild(mic) // マイク生成
+  }
+
+  section.appendChild(trash) // 削除ボタン生成
+}
+
+
+
+// 削除
+function removeElement(e){ 
+
+  var confirm = window.confirm('このメモを燃やしますか？') // 確認アラート
+
+  if(confirm){ // 「OK」の場合
+    var trash = e.target // クリックされたゴミ箱
+    var section = trash.parentElement // セクション
+
+    var canvas = document.createElement('canvas') // キャンバス
+    canvas.classList.add('rounded', 'rounded-sm', 'bg-dark'); // クラス
+    canvasInit(canvas) // 燃えるアクションの設定（別ファイルの関数）
+    section.appendChild(canvas) // 炎のキャンバス生成
+
+    setTimeout(function(){ // 1.5秒後に
+      section.classList.add('feedout') // フェードアウトさせる
+    },1500)
+
+    setTimeout(function(){ // 2.2秒後に
+      var container = section.parentElement // その親のcontainer
+      container.removeChild(section) // conteinterからsectionを削除
+    },2200)
+  }
+}
 
 // 音声入力
 function voiceInput(e){ 
@@ -192,9 +166,9 @@ function voiceInput(e){
 
 
 // ページ読み込み時
-// window.onload = function() {
-//   add() // 早速メモを１つ作成
-// }
+window.onload = function() {
+  add() // 早速メモを１つ作成
+}
 
 </script>
 
