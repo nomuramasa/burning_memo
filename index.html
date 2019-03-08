@@ -66,55 +66,53 @@ addVue = new Vue({
 
   el: '#bigarea',
   data: {
-    html : '<div id="makearea"><section id="memo" class="mb-3"><div contenteditable="true" class="textbox bg-white w-100 px-2 py-2 rounded rounded-sm"></div><i class="fas fa-microphone mic btn btn-lg px-2"></i><i class="fas fa-burn trash btn btn-lg px-2" v-on:click="del"></i></section></div>'
     // データってある？？
   },
   methods: {
     add: function(){ // メモ追加
 
-      // var section = document.createElement('section') // セクション
-      // section.setAttribute('id', 'memo') // IDはmemo
-      // section.classList.add('mb-3') // マージン
+      var section = document.createElement('section') // セクション
+      section.setAttribute('id', 'memo') // IDはmemo
+      section.classList.add('mb-3') // マージン
 
-      // var textbox = document.createElement('div') // 入力欄の為のdiv
-      // textbox.setAttribute('contenteditable','true') // 入力できる欄にする
-      // textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'rounded', 'rounded-sm'); // クラス
+      var textbox = document.createElement('div') // 入力欄の為のdiv
+      textbox.setAttribute('contenteditable','true') // 入力できる欄にする
+      textbox.classList.add('textbox', 'bg-white', 'w-100', 'px-2', 'py-2', 'rounded', 'rounded-sm'); // クラス
 
-      // var trash = document.createElement('i') // 削除ボタン
-      // trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg', 'px-2'); // 炎アイコンの為のクラス
-      // // trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
-      //   // del(e) // 削除関数を実行
-      // // }
-      // trash.setAttribute('v-on:click', 'del') // 削除ボタンを押したとき
-
-      // var mic = document.createElement('i') // 音声入力ボタン
-      // mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg', 'px-2'); // マイクアイコンの為のクラス
-      // mic.onclick = function(e) { // マイクボタンを押したとき
-      //   voiceInput(e) // 音声入力関数を実行
+      var trash = document.createElement('i') // 削除ボタン
+      trash.classList.add('fas', 'fa-burn', 'trash', 'btn', 'btn-lg', 'px-2'); // 炎アイコンの為のクラス
+      // trash.onclick = function(e) { // 削除ボタンを押したとき （eは自分自身のelement？）
+        // del(e) // 削除関数を実行
       // }
+      trash.setAttribute('v-on:click', 'del') // 削除ボタンを押したとき
+
+      var mic = document.createElement('i') // 音声入力ボタン
+      mic.classList.add('fas', 'fa-microphone', 'mic', 'btn', 'btn-lg', 'px-2'); // マイクアイコンの為のクラス
+      mic.onclick = function(e) { // マイクボタンを押したとき
+        voiceInput(e) // 音声入力関数を実行
+      }
 
 
 
       var makearea = document.getElementById('makearea') // メモ作成エリア
-      makearea.insertAdjacentHTML('beforeend',this.html)
-      // makearea.appendChild(section) // セクション生成
-      // section.appendChild(textbox) // 入力欄生成
+      makearea.appendChild(section) // セクション生成
+      section.appendChild(textbox) // 入力欄生成
 
 
       // ブラウザがChomeかを判別
-      // var agent = window.navigator.userAgent.toLowerCase() // ユーザーエージェント
-      // var chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1) // trueかfalse
+      var agent = window.navigator.userAgent.toLowerCase() // ユーザーエージェント
+      var chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1) // trueかfalse
 
-      // // 安全な通信かを判別
-      // var host = document.location.hostname; // ホスト
-      // var protocol = location.protocol; // 通信プロトコル
-      // var secure = host == 'localhost' || host == '127.0.0.1' || protocol == 'https' // ローカル環境またはSSL通信かどうか どちらかであればtrue どちらでもなければfalse
+      // 安全な通信かを判別
+      var host = document.location.hostname; // ホスト
+      var protocol = location.protocol; // 通信プロトコル
+      var secure = host == 'localhost' || host == '127.0.0.1' || protocol == 'https' // ローカル環境またはSSL通信かどうか どちらかであればtrue どちらでもなければfalse
      
-      // if(chrome && secure){ // Chromeブラウザで、かつ安全な通信だったら 
-      //   section.appendChild(mic) // マイク生成
-      // }
+      if(chrome && secure){ // Chromeブラウザで、かつ安全な通信だったら 
+        section.appendChild(mic) // マイク生成
+      }
 
-      // section.appendChild(trash) // 削除ボタン生成
+      section.appendChild(trash) // 削除ボタン生成
 
       // ここでdeleteVueを作成！ カウンタで1,2,3ってすればthis必要ないけど、どれ推奨？？
     },
