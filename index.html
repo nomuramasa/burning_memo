@@ -114,20 +114,9 @@ addVue = new Vue({
 
       section.appendChild(trash) // 削除ボタン生成
 
-      //ここで
-
+      // ここでdeleteVueを作成！ カウンタで1,2,3ってすればthis必要ないけど、どれ推奨？？
     }
-  }
 
-})
-
-
-deleteVue = new Vue({
-  el: '#memo',
-  data: {
-
-  },
-  methods: {
     del: function(e){
 
       var confirm = window.confirm('このメモを燃やしますか？') // 確認アラート
@@ -152,9 +141,22 @@ deleteVue = new Vue({
       }
 
     }
+
   }
 
 })
+
+
+// deleteVue = new Vue({
+//   el: '#memo',
+//   data: {
+
+//   },
+//   methods: {
+
+//   }
+
+// })
 
 
 // 音声入力
