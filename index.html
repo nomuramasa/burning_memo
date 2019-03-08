@@ -46,10 +46,18 @@
 
   <!-- 大枠 -->
   <div id='bigarea'>
-    <div id='makearea'>
-    	<!-- メモ作成エリア この中に追加していく -->
-    </div> 
-
+   	<!-- メモ作成エリア この中に追加していく -->
+      <div id='makearea'>
+      </div> 
+<!--       <template>
+        <section id="memo" class="mb-3">
+          <div contenteditable="true" class="textbox bg-white w-100 px-2 py-2 rounded rounded-sm">
+          </div>
+          <i class="fas fa-microphone mic btn btn-lg px-2"></i><i class="fas fa-burn trash btn btn-lg px-2" v-on:click="del">
+          </i>
+        </section> 
+      </template>
+ -->
     <div class="text-center btn-div mt-4"> <!-- ボタンを真ん中にする -->
   	  <div class='btn btn-dark' v-on:click='add'>新しいメモ　＋</div> <!-- 新規追加ボタン -->
   	</div>
@@ -145,18 +153,6 @@ addVue = new Vue({
   }
 
 })
-
-
-// deleteVue = new Vue({
-//   el: '#memo',
-//   data: {
-
-//   },
-//   methods: {
-
-//   }
-
-// })
 
 
 // 音声入力
