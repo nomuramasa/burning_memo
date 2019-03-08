@@ -65,46 +65,15 @@ var mine = new Vue({
 </script> -->
 
 
-<!-- 見本 -->
-<!-- <div id="app">
-  <input type="number" v-model="number_01">
-  <input type="number" v-model="number_02">
-  <div :class="{isActive: isActive}">{{ sum }}</div>
-  <button v-on:click="isActive = !isActive">赤く</button>
-</div>
- 
-<script>
-  new Vue({
-    el: "#app",
-    data: {
-      number_01: '',
-      number_02: '',
-      isActive: false
-    },
-    computed: {
-      sum() {
-        return Number(this.number_01)+ Number(this.number_02);
-      }
-    }
-  })
-</script>
-<style>
-  .isActive {
-    color: red;
-  }
-</style>
- -->
-
 
 <!-- 左と右の入力欄を合体　スイッチも -->
 
 <div id='box'>
-	<input v-model='left'>
-	<input v-model='right'>
+	<input v-model='left'> <input v-model='right'>
 	<div :class='{red: switch_on}'>{{ sum }}</div>
 	<button v-on:click='switch_on = !switch_on'>赤く</button>
 </div>
- 
+
 <script>
 new Vue({
 	el: '#box',
@@ -117,6 +86,17 @@ new Vue({
 		sum(){
 			return this.left + this.right
 		}
+	},
+	watch: {
+		left(value){
+			console.log('左が変わったよ', value)
+			if(value == 'ら'){
+				console.log('らは使ってはいけません')
+			}
+		},
+		right(value){
+			console.log('右が変わったよ', value)
+		}
 	}
 })
 
@@ -126,3 +106,54 @@ new Vue({
     color: red;
   }
 </style>
+
+
+<!-- ラジオボタン -->s
+<!-- <template>
+  <form class="form-horizontal">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Input select</label>
+        <div class="col-lg-4">
+          <div class="radio">
+            <label>
+              <input v-model="selector" type="radio" value="1">
+              Option one is this
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input v-model="selector" type="radio" value="2">
+              Option two can be something else
+            </label>
+          </div>
+        </div>
+      </div>
+      <div v-if="selector == 1" class="form-group">
+        <label for="input1" class="col-lg-2 control-label">Input 1</label>
+        <div class="col-lg-4">
+          <input v-model="input1" type="text" class="form-control" id="input1" placeholder="foo bar">
+        </div>
+      </div>
+      <div v-if="selector == 2" class="form-group">
+        <label for="input2" class="col-lg-2 control-label">Input 2</label>
+        <div class="col-lg-4">
+          <input v-model="input2" type="text" class="form-control" id="input2" placeholder="bar buzz">
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</template> -->
+
+<!-- <script src="https://unpkg.com/react@15/dist/react.min.js"></script> -->
+<!-- <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script> -->
+
+<!-- <script type="module">
+export default {
+  data() {
+    return {
+      selector: 1
+    }
+  }
+}
+</script> -->
