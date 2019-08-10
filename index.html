@@ -97,7 +97,7 @@ function add() {
   // 安全な通信かを判別
   var host = document.location.hostname; // ホスト
   var protocol = location.protocol; // 通信プロトコル
-  var secure = host == 'localhost' || host == '127.0.0.1' || protocol == 'https' // ローカル環境またはSSL通信かどうか どちらかであればtrue どちらでもなければfalse
+  var secure = host == 'localhost' || host == '127.0.0.1' || protocol == 'https:' // ローカル環境またはSSL通信かどうか どちらかであればtrue どちらでもなければfalse
  
   if(chrome && secure){ // Chromeブラウザで、かつ安全な通信だったら 
     section.appendChild(mic) // マイク生成
