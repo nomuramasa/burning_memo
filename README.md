@@ -1,7 +1,7 @@
 # 焼き捨てメモ
 
 <!-- 画像 -->
-<div align="center"><img src='screen.png'></div>
+<div align='center'><img src='screen.png'></div>
 
 ## 概要
 ブラウザを閉じればデータが残らない、1回限りのメモ。  
